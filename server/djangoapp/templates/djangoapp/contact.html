@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dealership Review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
+</head>
+
+<body>
+    <!--Add a nav bar here -->
+       <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Awesome Dealership</a>
+              <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About Us</a>
+             <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+        </div>
+        
+        <ul class="nav navbar-nav navbar-right">
+    {% if user.is_authenticated %}
+    <li>
+         <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+         <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+    </li>
+    {% else %}
+    <li>
+         <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                 <input type="text" class="form-control" placeholder="Username" name="username" >
+                 <input type="password" class="form-control" placeholder="Password" name="psw" >
+                 <button class="btn btn-primary" type="submit">Login</button>
+                 <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a> 
+            </div>
+         </form>
+    </li>
+    {% endif %}
+</ul>
+    </div>
+</nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mr-auto">
+                <h2>Contact Us</h2>
+                <p class="mb-5">We would like to hear feedbacks from you!</p>
+                <ul class="list-unstyled pl-md-5 mb-5">
+                    <li class="d-flex text-black mb-2">
+                        <span class="mr-3"><span class="icon-map"></span>Street Name, City Name<br> Canada
+                    </li>
+                    <li class="d-flex text-black mb-2"><span class="mr-3"><span class="icon-phone"></span> +1 (111) 111 1111</li>
+                    <li class="d-flex text-black"><span class="mr-3"><span class="icon-envelope-o"></span> info@mywebsite.com </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <form class="mb-5" method="post" id="contactForm" name="contactForm" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="name" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" name="email" id="email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="message" class="col-form-label">Message</label>
+                            <textarea class="form-control" name="message" id="message" cols="30" rows="7"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" value="Send Message" class="btn btn-primary rounded-0 py-2 px-4">
+                            <span class="submitting"></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
